@@ -3,71 +3,441 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>나랑 데이트 할래?</title>
+  <title>나랑 데이트 할래? 🌸</title>
   <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+    }
+
     body {
+      background-color: #fdf2f4;
+      background-image: 
+        radial-gradient(#fbcfe8 15%, transparent 16%), 
+        radial-gradient(#fbcfe8 15%, transparent 16%);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* 배경 벚꽃/반짝이 효과 */
+    .petal {
+      position: fixed;
+      top: -10%;
+      user-select: none;
+      pointer-events: none;
+      animation: fall linear forwards;
+      opacity: 0.7;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.2;
+      }
+    }
+
+    /* 메인 카드 */
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-radius: 32px;
+      box-shadow: 0 15px 35px rgba(225, 112, 142, 0.12);
+      width: 100%;
+      max-width: 380px;
+      padding: 40px 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .step {
+      display: none;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      color: #2b2b2b;
+      margin-bottom: 8px;
+      font-weight: 700;
+      word-break: keep-all;
+    }
+
+    p.subtitle {
+      font-size: 0.95rem;
+      color: #7a7a7a;
+      margin-bottom: 28px;
+    }
+
+    /* 버튼 스타일 */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .primary-btn {
+      background: #e85d75;
+      color: white;
+      border: none;
+      padding: 13px 28px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(232, 93, 117, 0.3);
+      transition: transform 0.15s ease, background 0.2s;
+    }
+
+    .primary-btn:hover {
+      background: #d94e66;
+    }
+
+    .primary-btn:active {
+      transform: scale(0.96);
+    }
+
+    .secondary-btn {
+      background: #c3cbd5;
+      color: white;
+      border: none;
+      padding: 13px 28px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .outline-btn {
+      background: white;
+      color: #666;
+      border: 1.5px solid #e2e8f0;
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    /* 입력 필드 (Step 3) */
+    .input-box {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-box label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 8px;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid #e8ecf2;
+      background: #fbfcfe;
+      font-size: 1rem;
+      color: #333;
+      outline: none;
+    }
+
+    .input-box input:focus {
+      border-color: #e85d75;
+    }
+
+    /* 음식 선택 그리드 (Step 4) */
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .food-item {
+      background: #fbfcfe;
+      border: 1px solid #f0f2f5;
+      border-radius: 18px;
+      padding: 16px 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #ffeef2;
-      font-family: 'Apple SD Gothic Neo', sans-serif;
+      gap: 6px;
     }
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 2rem;
-      color: #333;
+
+    .food-item:hover, .food-item:active {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(232, 93, 117, 0.15);
+      border-color: #fbcfe8;
     }
-    .btn-group {
+
+    .food-emoji {
+      font-size: 2rem;
+    }
+
+    .food-name {
+      font-size: 0.9rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    /* 최종 결과 요약 박스 (Step 5) */
+    .summary-card {
+      background: #fef8f9;
+      border: 1.5px solid #fbe4e9;
+      border-radius: 20px;
+      padding: 22px 18px;
+      margin: 22px 0;
+      text-align: left;
+    }
+
+    .summary-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #e85d75;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .summary-row {
       display: flex;
-      gap: 20px;
-      position: relative;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      color: #444;
     }
-    button {
-      padding: 12px 28px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.1s ease;
+
+    .summary-row:last-child {
+      margin-bottom: 0;
     }
-    #yesBtn {
-      background-color: #ff4d6d;
-      color: white;
+
+    .summary-label {
+      color: #888;
     }
-    #noBtn {
-      background-color: #adb5bd;
-      color: white;
-      position: relative;
+
+    .summary-value {
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <h1 id="question">나랑 데이트 할래? ☕</h1>
-  <div class="btn-group">
-    <button id="yesBtn" onclick="acceptDate()">좋아!</button>
-    <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">아니오</button>
+
+  <div class="card">
+    <!-- 1단계: 데이트 신청 -->
+    <div class="step active" id="step1">
+      <h2>🌸 나랑 데이트 할래? 🌸</h2>
+      <div class="btn-group">
+        <button class="primary-btn" onclick="nextStep(2)">응 좋아 ♥</button>
+        <button class="secondary-btn" id="noBtn" onmouseover="dodgeBtn()" onclick="dodgeBtn()">싫어 👣</button>
+      </div>
+    </div>
+
+    <!-- 2단계: 깜짝 놀람 -->
+    <div class="step" id="step2">
+      <h2>잠시만.. 좋다고?? 😳</h2>
+      <p class="subtitle">난 너가 싫다고 할 줄 알았어 ...</p>
+      <button class="primary-btn" onclick="nextStep(3)">응응응응</button>
+    </div>
+
+    <!-- 3단계: 날짜 및 시간 선택 -->
+    <div class="step" id="step3">
+      <h2>그래서... 언제가 편해? 🗓️</h2>
+      <p class="subtitle">날짜랑 시간을 골라줘!</p>
+      
+      <div class="input-box">
+        <label>🗓️ 날짜</label>
+        <input type="date" id="dateInput">
+      </div>
+      <div class="input-box">
+        <label>⏰ 시간</label>
+        <input type="time" id="timeInput">
+      </div>
+
+      <button class="primary-btn" style="width: 100%; margin-top: 10px;" onclick="saveDateTime()">이 날 좋아!</button>
+    </div>
+
+    <!-- 4단계: 음식 메뉴 선택 -->
+    <div class="step" id="step4">
+      <h2>그래! 이 날 뭐 땡길 것 같아?</h2>
+      <p class="subtitle">난 뭐든 괜찮아 😋</p>
+
+      <div class="food-grid">
+        <div class="food-item" onclick="selectFood('🍕 피자')">
+          <span class="food-emoji">🍕</span>
+          <span class="food-name">피자</span>
+        </div>
+        <div class="food-item" onclick="selectFood('🍣 스시')">
+          <span class="food-emoji">🍣</span>
+          <span class="food-name">스시</span>
+        </div>
+        <div class="food-item" onclick="selectFood('🍔 햄버거')">
+          <span class="food-emoji">🍔</span>
+          <span class="food-name">햄버거</span>
+        </div>
+        <div class="food-item" onclick="selectFood('🍝 파스타')">
+          <span class="food-emoji">🍝</span>
+          <span class="food-name">파스타</span>
+        </div>
+        <div class="food-item" onclick="selectFood('🍚 국밥')">
+          <span class="food-emoji">🍚</span>
+          <span class="food-name">국밥</span>
+        </div>
+        <div class="food-item" onclick="selectFood('🍜 라멘')">
+          <span class="food-emoji">🍜</span>
+          <span class="food-name">라멘</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5단계: 최종 확인 -->
+    <div class="step" id="step5">
+      <h2 id="finalHeading">싫다고 안해줘서 기뻐, 13:00시에 내가 데리러 갈게 🚶</h2>
+      <p class="subtitle">예쁘게 입고 갈거야 나 엄청 기대돼! 💕</p>
+
+      <div class="summary-card">
+        <div class="summary-title">우리의 데이트 약속 💌</div>
+        <div class="summary-row">
+          <span class="summary-label">날짜</span>
+          <span class="summary-value" id="summaryDate">-</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">시간</span>
+          <span class="summary-value" id="summaryTime">-</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">메뉴</span>
+          <span class="summary-value" id="summaryFood">-</span>
+        </div>
+      </div>
+
+      <button class="primary-btn" style="width: 100%;" onclick="sharePromise()">내 답변 보내기 💌</button>
+      <button class="outline-btn" onclick="restart()">처음부터 다시하기</button>
+    </div>
   </div>
 
   <script>
-    function acceptDate() {
-      document.getElementById('question').innerText = "약속 잡자! 언제 볼까? 🎉";
-      document.querySelector('.btn-group').style.display = 'none';
+    let selectedDate = '';
+    let selectedTime = '';
+    let selectedFood = '';
+
+    // 단계 이동 함수
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+      document.getElementById(`step${stepNumber}`).classList.add('active');
     }
 
-    // 마우스를 올리거나 터치할 때 버튼이 랜덤 위치로 도망가는 기능
-    function moveButton() {
+    // "싫어" 버튼 도망가기
+    function dodgeBtn() {
       const btn = document.getElementById('noBtn');
-      const x = Math.random() * (window.innerWidth - btn.clientWidth - 40);
-      const y = Math.random() * (window.innerHeight - btn.clientHeight - 40);
+      const maxX = window.innerWidth - btn.clientWidth - 40;
+      const maxY = window.innerHeight - btn.clientHeight - 40;
       
+      const randomX = Math.max(20, Math.random() * maxX);
+      const randomY = Math.max(20, Math.random() * maxY);
+
       btn.style.position = 'fixed';
-      btn.style.left = `${Math.max(20, x)}px`;
-      btn.style.top = `${Math.max(20, y)}px`;
+      btn.style.left = `${randomX}px`;
+      btn.style.top = `${randomY}px`;
+      btn.style.zIndex = '999';
     }
+
+    // 날짜/시간 검증 및 저장
+    function saveDateTime() {
+      const dateVal = document.getElementById('dateInput').value;
+      const timeVal = document.getElementById('timeInput').value;
+
+      if (!dateVal || !timeVal) {
+        alert('날짜와 시간을 모두 선택해줘! 😊');
+        return;
+      }
+
+      // 날짜 한글 포맷 변환 (예: 2026-07-11 -> 2026년 7월 11일)
+      const [year, month, day] = dateVal.split('-');
+      selectedDate = `${year}년 ${parseInt(month)}월 ${parseInt(day)}일`;
+      selectedTime = timeVal;
+
+      nextStep(4);
+    }
+
+    // 메뉴 선택
+    function selectFood(food) {
+      selectedFood = food;
+
+      // 최종 단계 정보 채우기
+      document.getElementById('finalHeading').innerText = `싫다고 안해줘서 기뻐, ${selectedTime}시에 내가 데리러 갈게 🚶`;
+      document.getElementById('summaryDate').innerText = selectedDate;
+      document.getElementById('summaryTime').innerText = selectedTime;
+      document.getElementById('summaryFood').innerText = selectedFood;
+
+      nextStep(5);
+    }
+
+    // 답변 복사 또는 카카오톡 공유
+    function sharePromise() {
+      const text = `[우리의 데이트 약속 💌]\n• 날짜: ${selectedDate}\n• 시간: ${selectedTime}\n• 메뉴: ${selectedFood}\n\n약속 잡혔다! 우리 얼른 보자 💕`;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: '우리의 데이트 약속 💌',
+          text: text
+        }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('데이트 약속이 클립보드에 복사되었어! 카톡으로 보내줘 💕');
+        });
+      }
+    }
+
+    // 처음부터 다시하기
+    function restart() {
+      const btn = document.getElementById('noBtn');
+      btn.style.position = 'static';
+      document.getElementById('dateInput').value = '';
+      document.getElementById('timeInput').value = '';
+      nextStep(1);
+    }
+
+    // 배경 벚꽃잎 생성
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      petal.innerText = ['🌸', '✨', '💕', '🌷'][Math.floor(Math.random() * 4)];
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.fontSize = (Math.random() * 14 + 10) + 'px';
+      petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      document.body.appendChild(petal);
+
+      setTimeout(() => {
+        petal.remove();
+      }, 7000);
+    }
+    setInterval(createPetal, 400);
   </script>
 </body>
 </html>
