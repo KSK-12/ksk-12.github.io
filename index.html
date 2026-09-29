@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나랑 데이트 할래?</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #ffeef2;
+      font-family: 'Apple SD Gothic Neo', sans-serif;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+    .btn-group {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+    button {
+      padding: 12px 28px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+    }
+    #noBtn {
+      background-color: #adb5bd;
+      color: white;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="question">나랑 데이트 할래? ☕</h1>
+  <div class="btn-group">
+    <button id="yesBtn" onclick="acceptDate()">좋아!</button>
+    <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">아니오</button>
+  </div>
+
+  <script>
+    function acceptDate() {
+      document.getElementById('question').innerText = "약속 잡자! 언제 볼까? 🎉";
+      document.querySelector('.btn-group').style.display = 'none';
+    }
+
+    // 마우스를 올리거나 터치할 때 버튼이 랜덤 위치로 도망가는 기능
+    function moveButton() {
+      const btn = document.getElementById('noBtn');
+      const x = Math.random() * (window.innerWidth - btn.clientWidth - 40);
+      const y = Math.random() * (window.innerHeight - btn.clientHeight - 40);
+      
+      btn.style.position = 'fixed';
+      btn.style.left = `${Math.max(20, x)}px`;
+      btn.style.top = `${Math.max(20, y)}px`;
+    }
+  </script>
+</body>
+</html>
