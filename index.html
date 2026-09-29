@@ -282,42 +282,42 @@
       <button class="primary-btn" style="width: 100%; margin-top: 10px;" onclick="saveDateTime()">이 날 좋아!</button>
     </div>
 
-    <!-- 4단계: 음식 메뉴 선택 -->
+    <!-- 4단계: 음식 메뉴 선택 (한식, 중식, 양식, 일식, 카페/디저트, 기타) -->
     <div class="step" id="step4">
       <h2>그래! 이 날 뭐 땡길 것 같아?</h2>
       <p class="subtitle">난 뭐든 괜찮아 😋</p>
 
       <div class="food-grid">
-        <div class="food-item" onclick="selectFood('🍕 피자')">
-          <span class="food-emoji">🍕</span>
-          <span class="food-name">피자</span>
-        </div>
-        <div class="food-item" onclick="selectFood('🍣 스시')">
-          <span class="food-emoji">🍣</span>
-          <span class="food-name">스시</span>
-        </div>
-        <div class="food-item" onclick="selectFood('🍔 햄버거')">
-          <span class="food-emoji">🍔</span>
-          <span class="food-name">햄버거</span>
-        </div>
-        <div class="food-item" onclick="selectFood('🍝 파스타')">
-          <span class="food-emoji">🍝</span>
-          <span class="food-name">파스타</span>
-        </div>
-        <div class="food-item" onclick="selectFood('🍚 국밥')">
+        <div class="food-item" onclick="selectFood('🍚 한식')">
           <span class="food-emoji">🍚</span>
-          <span class="food-name">국밥</span>
+          <span class="food-name">한식</span>
         </div>
-        <div class="food-item" onclick="selectFood('🍜 라멘')">
-          <span class="food-emoji">🍜</span>
-          <span class="food-name">라멘</span>
+        <div class="food-item" onclick="selectFood('🥟 중식')">
+          <span class="food-emoji">🥟</span>
+          <span class="food-name">중식</span>
+        </div>
+        <div class="food-item" onclick="selectFood('🍝 양식')">
+          <span class="food-emoji">🍝</span>
+          <span class="food-name">양식</span>
+        </div>
+        <div class="food-item" onclick="selectFood('🍣 일식')">
+          <span class="food-emoji">🍣</span>
+          <span class="food-name">일식</span>
+        </div>
+        <div class="food-item" onclick="selectFood('☕ 디저트')">
+          <span class="food-emoji">☕</span>
+          <span class="food-name">디저트</span>
+        </div>
+        <div class="food-item" onclick="selectFood('✨ 기타')">
+          <span class="food-emoji">✨</span>
+          <span class="food-name">기타</span>
         </div>
       </div>
     </div>
 
     <!-- 5단계: 최종 확인 -->
     <div class="step" id="step5">
-      <h2 id="finalHeading">싫다고 안해줘서 기뻐, 13:00시에 내가 데리러 갈게 🚶</h2>
+      <h2 id="finalHeading">싫다고 안해줘서 기뻐, 약속 시간에 데리러 갈게 🚶</h2>
       <p class="subtitle">예쁘게 입고 갈거야 나 엄청 기대돼! 💕</p>
 
       <div class="summary-card">
@@ -377,7 +377,6 @@
         return;
       }
 
-      // 날짜 한글 포맷 변환 (예: 2026-07-11 -> 2026년 7월 11일)
       const [year, month, day] = dateVal.split('-');
       selectedDate = `${year}년 ${parseInt(month)}월 ${parseInt(day)}일`;
       selectedTime = timeVal;
@@ -389,7 +388,6 @@
     function selectFood(food) {
       selectedFood = food;
 
-      // 최종 단계 정보 채우기
       document.getElementById('finalHeading').innerText = `싫다고 안해줘서 기뻐, ${selectedTime}시에 내가 데리러 갈게 🚶`;
       document.getElementById('summaryDate').innerText = selectedDate;
       document.getElementById('summaryTime').innerText = selectedTime;
