@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>서현공주 나랑 데이트 할래? ♥🌸</title>
+  <title>서현공주 나랑 데이트 할래? 🌸</title>
   <style>
     * {
       box-sizing: border-box;
@@ -74,11 +74,12 @@
     }
 
     h2 {
-      font-size: 1.45rem;
+      font-size: 1.4rem;
       color: #2b2b2b;
       margin-bottom: 8px;
       font-weight: 700;
       word-break: keep-all;
+      line-height: 1.4;
     }
 
     p.subtitle {
@@ -251,7 +252,7 @@
   <div class="card">
     <!-- 1단계: 데이트 신청 -->
     <div class="step active" id="step1">
-      <h2>🌸 나랑 데이트 할래? 🌸</h2>
+      <h2>🌸 서현공주 나랑 데이트 할래? 🌸</h2>
       <div class="btn-group">
         <button class="primary-btn" onclick="nextStep(2)">응 좋아 ♥</button>
         <button class="secondary-btn" id="noBtn" onmouseover="dodgeBtn()" onclick="dodgeBtn()">싫어 👣</button>
@@ -282,7 +283,7 @@
       <button class="primary-btn" style="width: 100%; margin-top: 10px;" onclick="saveDateTime()">이 날 좋아!</button>
     </div>
 
-    <!-- 4단계: 음식 메뉴 선택 (한식, 중식, 양식, 일식, 카페/디저트, 기타) -->
+    <!-- 4단계: 음식 메뉴 선택 -->
     <div class="step" id="step4">
       <h2>그래! 이 날 뭐 땡길 것 같아?</h2>
       <p class="subtitle">난 뭐든 괜찮아 😋</p>
@@ -396,7 +397,7 @@
       nextStep(5);
     }
 
-    // 답변 복사 또는 카카오톡 공유
+    // 답변 복사 또는 공유
     function sharePromise() {
       const text = `[우리의 데이트 약속 💌]\n• 날짜: ${selectedDate}\n• 시간: ${selectedTime}\n• 메뉴: ${selectedFood}\n\n약속 잡혔다! 우리 얼른 보자 💕`;
       
@@ -407,7 +408,7 @@
         }).catch(() => {});
       } else {
         navigator.clipboard.writeText(text).then(() => {
-          alert('데이트 약속이 클립보드에 복사되었어! 카톡으로 보내줘 💕');
+          alert('데이트 약속이 복사되었어! 카톡으로 보내줘 💕');
         });
       }
     }
